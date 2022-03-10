@@ -18,6 +18,7 @@
 
 <script>
 import ProductListItem from "./ProductListItem.vue";
+import axios from 'axios';
 
 export default {
   name: "ProductList",
@@ -29,6 +30,19 @@ export default {
       products: [],
     };
   },
+  mounted() {
+    this.updateProducts();
+  },
+  methods: {
+    updateProducts() {
+      axios
+        .get('http://localhost/products')
+        .then(res => {
+          this.products = res.data;
+        })
+        .catch((err) => console.error(err));
+    }
+  }
 };
 </script>
 

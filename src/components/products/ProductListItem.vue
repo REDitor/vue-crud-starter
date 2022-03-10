@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "ProductListItem",
   props: {
@@ -31,12 +33,16 @@ export default {
   },
   methods: {
     deleteProduct(id) {
-      alert("product not deleted: " + id);
-      // use axios to delete the product
+      //TODO: update data without reloading page
+      axios 
+      .delete(`http://localhost/products/${id}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
     },
     editProduct(id) {
-      alert("product not edited: " + id);
-      // use the router to navigate to the editproduct route and pass the id
+      this.$router.push(`/editproduct/${id}`);
     },
   },
 };

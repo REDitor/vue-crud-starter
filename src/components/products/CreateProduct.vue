@@ -30,13 +30,13 @@
 
         <div class="input-group mb-3">
           <span class="input-group-text">Category</span>
-          <select class="form-select">
-            <option value="testoptionvalue">test option</option>
+          <select v-model="product.category_id" class="form-select">
+            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
           </select>
         </div>
 
         <div class="input-group mt-4">
-          <button type="button" class="btn btn-primary">Create product</button>
+          <button type="button" class="btn btn-primary" @click="createProduct">Create product</button>
           <button
             type="button"
             class="btn btn-danger"
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "CreateProduct",
   data() {
@@ -65,6 +66,29 @@ export default {
       categories: [],
     };
   },
+  mounted() {
+    this.getCategories();
+  },
+  methods: {
+    getCategories() {
+      axios
+        .get('http://localhost/categories')
+        .then((res) => {
+          this.categories = res.data;
+        })
+        .catch((err) => console.error(err));
+    },
+    createProduct() {
+      //TODO: product not showing up when reaching page without extra reload
+      axios
+        .post('http://localhost/products', this.product)
+        .then((res) => {
+          console.log(res);
+          this.$router.push('/products');
+        })
+        .catch((err) => console.error(err));
+    }
+  }
 };
 </script>
 
