@@ -97,7 +97,7 @@ export default {
     },
     updateProduct() {
       axios
-        .put(`http://localhost/products/${this.id}`)
+        .put(`http://localhost/products/${this.id}`, this.product)
         .then((res) => {
           console.log(res);
           this.$router.push('/products');

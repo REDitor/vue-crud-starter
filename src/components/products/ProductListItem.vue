@@ -38,6 +38,7 @@ export default {
       .delete(`http://localhost/products/${id}`)
       .then((res) => {
         console.log(res);
+        this.$emit('updateProducts');
       })
       .catch((err) => console.error(err));
     },

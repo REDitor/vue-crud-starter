@@ -10,6 +10,7 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
+          @updateProducts="updateProducts"
         />
       </div>
     </div>
